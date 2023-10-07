@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 
 
 app = Flask(__name__)
@@ -32,3 +32,23 @@ def excersize():
 @app.route('/exercise')
 def exercise():
     return render_template('answer.html', name=request.args.get("my_name"))
+
+
+@app.route('/try_rest', methods=['POST'])
+def try_test():
+    request_json = request.get_json()
+    print(request_json)
+    print(type(request_json))
+    name = request_json['name']
+    print(name)
+    response_json = {"response_json": request_json}
+    
+    
+    for i in response_json['response_json']['friends']:
+        print(i)
+
+    
+    return jsonify(response_json)
+
+
+
