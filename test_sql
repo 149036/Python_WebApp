@@ -1,0 +1,5 @@
+CREATE TABLE human (id INT PRIMARY KEY, name TEXT NOT NULL, height REAL, weight REAL);
+
+INSERT INTO human VALUES(1, 'a',10.10, 40.40);
+INSERT INTO human VALUES(2, 'b', NULL, 50.50);
+INSERT INTO human VALUES(3, 'c', 30.30, NULL);
