@@ -15,3 +15,7 @@ def another():
 def test_request():
     return f'test_request:{request.args.get("dummy")}'
 
+@app.route('/exercise_request/<a>')
+def exercise_request(a):
+    return f'{a}'
+
