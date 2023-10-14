@@ -13,3 +13,11 @@ class Human(Base):
     name = Column(Text, nullable=False)
     height = Column(Float)
     weight = Column(Float)
+
+
+class Person(Base):
+    __tablename__ = 'person'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(Text, nullable=False)
+    size = Column(Float)
