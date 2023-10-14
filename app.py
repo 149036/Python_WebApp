@@ -1,7 +1,14 @@
 from flask import Flask, request, render_template, jsonify
+from flask_sqlalchemy import SQLAlchemy
+from test_model import Human
+
 
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test_db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
 
 
 @app.route('/')
@@ -51,4 +58,18 @@ def try_test():
     return jsonify(response_json)
 
 
+@app.route('/person_search')
+def person_search():
+    return render_template('./person_search.html')
 
+
+@app.route('/person_result')
+def person_result():
+    search_weight = request.args.get("search_weight")
+    persons = db.session.query(Human).filter(Human.weight > search_weight)
+    return render_template('./person_result.html', persons=persons, search_weight=search_weight)
+
+
+@app.route('/try_html')
+def try_html():
+    return render_template('./try_html.html')
