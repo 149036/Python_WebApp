@@ -73,3 +73,8 @@ def person_result():
 @app.route('/try_html')
 def try_html():
     return render_template('./try_html.html')
+
+@app.route('/show_data',methods=["GET","POST"])
+def show_data():
+    print(request.form["submit"])
+    return render_template('./try_html.html')
