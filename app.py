@@ -1,7 +1,8 @@
 from flask import Flask, request, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from test_model import Human
-
+import operator
+from sqlalchemy import and_, or_
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test_db"
@@ -67,9 +68,33 @@ def person_search():
 @app.route("/person_result")
 def person_result():
     search_weight = request.args.get("search_weight")
-    persons = db.session.query(Human).filter(Human.weight > search_weight)
+    search_height = request.args.get("search_height")
+    over_under1 = request.args.get("over_under1")
+    over_under2 = request.args.get("over_under2")
+    andalso = request.args.get("andalso")
+
+    andor = {
+        "and": lambda a, b: and_(a, b),
+        "or": lambda a, b: or_(a, b),
+    }
+    o_u = {
+        "<=": lambda a, b: a <= b,
+        ">=": lambda a, b: a >= b,
+    }
+
+    filter = andor[andalso](
+        o_u[over_under1](Human.weight, search_weight),
+        o_u[over_under2](Human.height, search_height),
+    )
+
+    persons = db.session.query(Human).filter((filter))
+
     return render_template(
-        "./person_result.html", persons=persons, search_weight=search_weight
+        "./person_result.html",
+        persons=persons,
+        search_weight=search_weight,
+        search_height=search_height,
+        andalso=andalso,
     )
 
 

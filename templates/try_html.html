@@ -2,9 +2,24 @@
   <head>
     <link rel="stylesheet" href="{{url_for('static', filename='try_css.css')}}"/>
     <script src={{url_for("static",filename="try_js.js")}}></script>
+    <script src={{url_for("static", filename="plotly-2.12.1.min.js")}}></script>
   </head>
+  <body>  
+    <div id="try_graph" style="width:600px;height:250px;margin:auto;">
+      <script>
+        var trace = {
+            x: [1, 2, 3, 4],
+            y: [10, 15, 13, 17],
+            mode: 'lines+markers',
+            type: 'scatter',
+            text:['A1','A2','A3','A4'],
+        };
+        
+        var data = [trace];
+        Plotly.newPlot('try_graph', data);
+    </script>
 
-  <body>
+    </div>
     <div>
       <form method="POST" action="http://127.0.0.1:5000/show_data">
         <table border="1" id="table_id">
@@ -30,4 +45,4 @@
       </form>
     </div>
   </body>
-</html>
+  </html>
