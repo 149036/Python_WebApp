@@ -5,3 +5,10 @@ td {
 th {
   color: magenta;
 }
+table {
+  margin: 0 auto;
+}
+
+div {
+  text-align: center;
+}
