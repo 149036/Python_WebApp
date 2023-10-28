@@ -1,5 +1,5 @@
 #Dockerイメージをビルドする
-docker build
+docker build [path]
 
 #作成されたDockerイメージを確認する
 docker images
